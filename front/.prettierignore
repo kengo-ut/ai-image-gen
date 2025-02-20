@@ -1,0 +1,25 @@
+node_modules/
+.next/
+.yarn/
+.nuxt/
+.astro/
+build/
+dist/
+out/
+public/
+pnpm-lock.yaml
+*.md
+
+# Config files
+.pnp.cjs
+.pnp.loader.mjs
+.prettierrc
+eslint.config.mjs
+next-env.d.ts
+next.config.ts
+package-lock.json
+package.json
+postcss.config.mjs
+tailwind.config.ts
+tsconfig.json
+yarn.lock
