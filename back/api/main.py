@@ -1,11 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from api.router import health_router
+from api.router import imggen_router
 
 app = FastAPI()
 
-app.include_router(health_router)
+app.include_router(imggen_router)
+
 
 app.add_middleware(
     CORSMiddleware,
