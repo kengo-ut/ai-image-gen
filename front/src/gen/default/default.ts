@@ -6,15 +6,41 @@
  */
 import axios from "axios";
 import type { AxiosRequestConfig, AxiosResponse } from "axios";
-import type { HealthStatus, HealthVariables } from ".././schema";
+import type { ImagePath, ImagePaths, ImagePrompt } from ".././schema";
 
 /**
- * @summary Health
+ * @summary Generate
  */
-export const healthHealthPost = <TData = AxiosResponse<HealthStatus>>(
-  healthVariables: HealthVariables,
+export const generateImggenGeneratePost = <TData = AxiosResponse<ImagePath>>(
+  imagePrompt: ImagePrompt,
   options?: AxiosRequestConfig
 ): Promise<TData> => {
-  return axios.post(`/health/`, healthVariables, options);
+  return axios.post(`/imggen/generate`, imagePrompt, options);
+};
+/**
+ * @summary Retrieve
+ */
+export const retrieveImggenRetrieveGet = <TData = AxiosResponse<ImagePaths>>(
+  options?: AxiosRequestConfig
+): Promise<TData> => {
+  return axios.get(`/imggen/retrieve`, options);
+};
+/**
+ * @summary Delete
+ */
+export const deleteImggenDeletePost = <TData = AxiosResponse<unknown>>(
+  imagePaths: ImagePaths,
+  options?: AxiosRequestConfig
+): Promise<TData> => {
+  return axios.post(`/imggen/delete`, imagePaths, options);
+};
+/**
+ * @summary Upload
+ */
+export const uploadImggenUploadPost = <TData = AxiosResponse<unknown>>(
+  imagePaths: ImagePaths,
+  options?: AxiosRequestConfig
+): Promise<TData> => {
+  return axios.post(`/imggen/upload`, imagePaths, options);
 };
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;

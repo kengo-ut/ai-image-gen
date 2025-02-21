@@ -6,7 +6,8 @@
  */
 
 export * from "./hTTPValidationError";
-export * from "./healthStatus";
-export * from "./healthVariables";
+export * from "./imagePath";
+export * from "./imagePaths";
+export * from "./imagePrompt";
 export * from "./validationError";
 export * from "./validationErrorLocItem";

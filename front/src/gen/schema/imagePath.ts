@@ -5,7 +5,7 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export interface HealthStatus {
-  /** 健康状態 */
-  status: string;
+export interface ImagePath {
+  /** Path to image */
+  image_path: string;
 }
