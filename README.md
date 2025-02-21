@@ -1,10 +1,13 @@
-# Fullstack-Template
+# AI-IMAGE-GEN
 
-Next.js と FastAPI によるフルスタック開発のためのテンプレートです (Health Status Checker が含まれています)
+## 概要
+
+AI-IMAGE-GEN は画像生成 AI を用いて画像を生成するアプリケーションです。
+生成した画像はデフォルトでローカルに保存され、その中で気に入った画像を Supabase にアップロードすることができます。
 
 ## デモ画像
 
-![demo](/images/health_status_checker.png)
+![demo](/images/demo.png)
 
 ## 環境構築
 
