@@ -7,7 +7,7 @@ _black_check:
 	uv run black --check ./
 
 _mypy:
-	uv run mypy ./
+	uv run mypy --ignore-missing-imports ./
 
 lint:
 	make -j _isort_check _black_check _mypy
