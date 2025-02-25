@@ -1,24 +1,35 @@
-export interface Settings {
-  steps: number;
-  guidanceScale: number;
-}
-
-export type Prompt = string;
-
-export interface ImageActionsProps {
-  selectedImages: string[];
-  onClearSelected: () => void;
-  onDeleteSelected: () => void;
-  onUploadSelected: () => void;
-}
+import { Metadata } from "@/gen/schema";
 
 export interface ImageGalleryProps {
-  srcs: string[];
+  images: Metadata[];
   isLoading: boolean;
-  selectedImages: string[];
-  onSelect: (selectedImages: string[]) => void;
+  onRefresh: () => void;
 }
 
-export interface PromptInputProps {
-  onImageGenerated: (imageSrc: string) => void;
+export interface SearchResultsProps {
+  searchResults: Metadata[];
+  setSearchResults: (results: Metadata[]) => void;
+  onRefresh: () => void;
+}
+
+export interface ImageThumbnailProps {
+  image: Metadata;
+  isSelected: boolean;
+  onSelect: () => void;
+}
+
+export interface ImageSearchProps {
+  onSearchResults: (results: Metadata[]) => void;
+}
+
+export type SearchType = "text" | "image";
+
+export interface ImageGeneratorProps {
+  onImageGenerated: () => void;
+}
+
+export interface FileUploadProps {
+  selectedFilePreview: string | null;
+  onFileChange: (file: File | null, preview: string | null) => void;
+  disabled?: boolean;
 }

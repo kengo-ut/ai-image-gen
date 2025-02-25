@@ -1,15 +1,10 @@
 import React from "react";
-import { Metadata } from "@/gen/schema";
 import Image from "next/image";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { Check } from "lucide-react";
 import { FileText } from "lucide-react";
 
-interface ImageThumbnailProps {
-  image: Metadata;
-  isSelected: boolean;
-  onSelect: () => void;
-}
+import { ImageThumbnailProps } from "@/types";
 
 const ImageThumbnail: React.FC<ImageThumbnailProps> = ({ image, isSelected, onSelect }) => {
   return (

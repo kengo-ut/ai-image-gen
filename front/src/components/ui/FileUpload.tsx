@@ -3,12 +3,7 @@ import React, { useRef } from "react";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
-interface FileUploadProps {
-  selectedFilePreview: string | null;
-  onFileChange: (file: File | null, preview: string | null) => void;
-  disabled?: boolean;
-}
+import { FileUploadProps } from "@/types";
 
 const FileUpload: React.FC<FileUploadProps> = ({
   selectedFilePreview,

@@ -4,20 +4,15 @@ import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import FileUpload from "./ui/FileUpload";
+import FileUpload from "@/components/ui/FileUpload";
 import {
   BodySearchImagesApiImagesSearchPost,
-  Metadata,
   SearchImagesApiImagesSearchPostParams,
 } from "@/gen/schema";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 
-interface ImageSearchProps {
-  onSearchResults: (results: Metadata[]) => void;
-}
-
-type SearchType = "text" | "image";
+import { SearchType, ImageSearchProps } from "@/types";
 
 const ImageSearch: React.FC<ImageSearchProps> = ({ onSearchResults }) => {
   const [searchType, setSearchType] = useState<SearchType>("text");
@@ -142,7 +137,7 @@ const ImageSearch: React.FC<ImageSearchProps> = ({ onSearchResults }) => {
               (searchType === "text" && !searchText.trim()) ||
               (searchType === "image" && !selectedFile)
                 ? "bg-gray-300 text-gray-500"
-                : "bg-green-500 text-white hover:bg-green-600"
+                : "bg-blue-500 text-white hover:bg-blue-600"
             }`}
           >
             {isSearching ? "Searching..." : "Search"}

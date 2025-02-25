@@ -55,7 +55,13 @@ export default function Home() {
           {/* Image Gallery */}
           <ImageGallery images={images} isLoading={isLoading} onRefresh={fetchImages} />
           {/* Search Results */}
-          {searchResults.length > 0 && <SearchResults searchResults={searchResults} />}
+          {searchResults.length > 0 && (
+            <SearchResults
+              searchResults={searchResults}
+              setSearchResults={setSearchResults}
+              onRefresh={fetchImages}
+            />
+          )}
         </div>
       </div>
     </div>
