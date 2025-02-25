@@ -33,3 +33,12 @@ export interface FileUploadProps {
   onFileChange: (file: File | null, preview: string | null) => void;
   disabled?: boolean;
 }
+
+export interface FilePickerOptions {
+  excludeAcceptAllOption?: boolean; // デフォルトは false
+  suggestedName?: string; // 提案するファイル名
+  types?: Array<{
+    description?: string; // カテゴリーの説明（省略可能）
+    accept: Record<string, string[]>; // MIME タイプと拡張子のマッピング
+  }>;
+}

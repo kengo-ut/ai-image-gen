@@ -5,7 +5,7 @@ import ImageThumbnail from "./ImageThumbnail";
 import { Button } from "@/components/ui/button";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
-import { ImageGalleryProps } from "@/types";
+import { FilePickerOptions, ImageGalleryProps } from "@/types";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 const ImageGallery: React.FC<ImageGalleryProps> = ({ images, isLoading, onRefresh }) => {
@@ -38,12 +38,18 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, isLoading, onRefres
 
     if ("showSaveFilePicker" in window) {
       try {
-        const fileHandle = await window.showSaveFilePicker({
+        const fileHandle = await (
+          window.showSaveFilePicker as unknown as (
+            options?: FilePickerOptions
+          ) => Promise<FileSystemFileHandle>
+        )({
           suggestedName: "selected_images.zip",
           types: [
             {
-              description: "ZIP file",
-              accept: { "application/zip": [".zip"] },
+              description: "Zip Files",
+              accept: {
+                "application/zip": [".zip"],
+              },
             },
           ],
         });
@@ -56,7 +62,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, isLoading, onRefres
         await writable.write(zipBlob);
         await writable.close();
       } catch (error) {
-        if (error.name === "AbortError") {
+        if ((error as Error).name === "AbortError") {
           console.log("File save cancelled");
         } else {
           console.error("File save failed:", error);

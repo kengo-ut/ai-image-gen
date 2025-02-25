@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+const imageBaseUrl = process.env.NEXT_PUBLIC_IMAGE_BASE_URL || "";
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -8,7 +9,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: process.env.NEXT_PUBLIC_IMAGE_BASE_URL,
+        hostname: imageBaseUrl,
       },
     ],
   },

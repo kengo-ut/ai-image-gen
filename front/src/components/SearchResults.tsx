@@ -1,6 +1,6 @@
 import ImageThumbnail from "@/components/ImageThumbnail";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { SearchResultsProps } from "@/types";
+import { FilePickerOptions, SearchResultsProps } from "@/types";
 import { useState } from "react";
 import JSZip from "jszip";
 import { deleteImagesApiImagesDeleteDelete } from "@/gen/images/images";
@@ -39,12 +39,18 @@ const SearchResults = ({ searchResults, setSearchResults, onRefresh }: SearchRes
 
     if ("showSaveFilePicker" in window) {
       try {
-        const fileHandle = await window.showSaveFilePicker({
+        const fileHandle = await (
+          window.showSaveFilePicker as unknown as (
+            options?: FilePickerOptions
+          ) => Promise<FileSystemFileHandle>
+        )({
           suggestedName: "selected_images.zip",
           types: [
             {
-              description: "ZIP file",
-              accept: { "application/zip": [".zip"] },
+              description: "Zip Files",
+              accept: {
+                "application/zip": [".zip"],
+              },
             },
           ],
         });
@@ -57,7 +63,7 @@ const SearchResults = ({ searchResults, setSearchResults, onRefresh }: SearchRes
         await writable.write(zipBlob);
         await writable.close();
       } catch (error) {
-        if (error.name === "AbortError") {
+        if ((error as Error).name === "AbortError") {
           console.log("File save cancelled");
         } else {
           console.error("File save failed:", error);
