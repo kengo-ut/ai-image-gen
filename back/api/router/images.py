@@ -1,15 +1,9 @@
 from io import BytesIO
 
 from core import ImageService
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, File, HTTPException, UploadFile
 from PIL import Image
-from schema import (
-    DeleteResponse,
-    ImageGenerationParams,
-    ImageSearchQuery,
-    ImageUrls,
-    Metadata,
-)
+from schema import DeleteResponse, ImageGenerationParams, ImageUrls, Metadata
 
 router = APIRouter(prefix="/images", tags=["images"])
 
@@ -37,18 +31,18 @@ async def list_images():
 
 @router.post("/search", response_model=list[Metadata])
 async def search_images(
-    request: ImageSearchQuery,
+    query: str | None = None, topk: int = 3, image: UploadFile | None = File(None)
 ):
     """テキストまたは画像に基づいて類似画像を検索する"""
     try:
         # 画像の場合、PILイメージに変換
         pil_image = None
-        if request.image:
-            contents = await request.image.read()
+        if image:
+            contents = await image.read()
             pil_image = Image.open(BytesIO(contents))
 
         results = ImageService.search_similar_images(
-            query=request.query, image=pil_image, topk=request.topk
+            query=query, image=pil_image, topk=topk
         )
         return results
     except ValueError as e:

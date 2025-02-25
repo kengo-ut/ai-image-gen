@@ -1,4 +1,4 @@
-from fastapi import File, Form, UploadFile
+from fastapi import File, UploadFile
 from pydantic import BaseModel, Field
 
 
@@ -11,12 +11,6 @@ class ImageGenerationParams(BaseModel):
 class Metadata(BaseModel):
     image_url: str = Field(..., description="URL of the image")
     prompt: str = Field(..., description="Text prompt for the image")
-
-
-class ImageSearchQuery(BaseModel):
-    query: str | None = Field(None, description="Text query for image search")
-    image: UploadFile | None = Field(None, description="Image file for image search")
-    topk: int = Field(3, description="Number of similar images to return")
 
 
 class ImageUrls(BaseModel):

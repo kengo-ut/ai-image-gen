@@ -5,8 +5,10 @@
  * Stable Diffusionを使った画像生成・検索API
  * OpenAPI spec version: 1.0.0
  */
-import type { ValidationError } from "./validationError";
 
-export interface HTTPValidationError {
-  detail?: ValidationError[];
+export interface DeleteResponse {
+  /** Status of the deletion */
+  status: string;
+  /** Message describing the status */
+  message: string;
 }

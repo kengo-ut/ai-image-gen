@@ -1,16 +1,8 @@
-from .schema import (
-    DeleteResponse,
-    ImageGenerationParams,
-    ImageSearchQuery,
-    ImageUrls,
-    Metadata,
-    Payload,
-)
+from .schema import DeleteResponse, ImageGenerationParams, ImageUrls, Metadata, Payload
 
 __all__ = [
     "DeleteResponse",
     "ImageGenerationParams",
-    "ImageSearchQuery",
     "ImageUrls",
     "Metadata",
     "Payload",

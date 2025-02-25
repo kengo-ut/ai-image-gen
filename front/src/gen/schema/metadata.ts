@@ -5,8 +5,10 @@
  * Stable Diffusionを使った画像生成・検索API
  * OpenAPI spec version: 1.0.0
  */
-import type { ValidationError } from "./validationError";
 
-export interface HTTPValidationError {
-  detail?: ValidationError[];
+export interface Metadata {
+  /** URL of the image */
+  image_url: string;
+  /** Text prompt for the image */
+  prompt: string;
 }

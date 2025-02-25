@@ -17,9 +17,7 @@ class Config:
     EMBEDDING_DIM = 512
 
     # データベースパス
-    QDRANT_DB_PATH = str(
-        Path(__file__).parent.parent.parent / "data" / "qdrant.db"
-    )
+    QDRANT_DB_PATH = str(Path(__file__).parent.parent.parent / "data" / "qdrant.db")
 
     # モデルパス
     SD_MODEL_PATH = "runwayml/stable-diffusion-v1-5"
