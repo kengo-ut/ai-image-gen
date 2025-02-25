@@ -12,14 +12,14 @@ module.exports = {
     hooks: {
       // orval の生成後に実行されるフック
       afterAllFilesWrite: () => {
-        const defaultTsPath = path.resolve(__dirname, "src/gen/default/default.ts");
+        const defaultTsPath = path.resolve(__dirname, "src/gen/images/images.ts");
 
         if (fs.existsSync(defaultTsPath)) {
           fs.appendFileSync(
             defaultTsPath,
             `axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;\n`
           );
-          console.log("✅ axios.defaults.baseURL を default.ts に追加しました！");
+          console.log("✅ axios.defaults.baseURL を images.ts に追加しました！");
         }
       },
     },

@@ -1,14 +1,15 @@
-import React, { useState } from "react";
-import { deleteImagesApiImagesDeleteDelete } from "@/gen/images/images";
-import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
-import ImageThumbnail from "./ImageThumbnail";
-import { Button } from "@/components/ui/button";
+import ImageThumbnail from "@/components/ImageThumbnail";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { SearchResultsProps } from "@/types";
+import { useState } from "react";
 import JSZip from "jszip";
+import { deleteImagesApiImagesDeleteDelete } from "@/gen/images/images";
 import { saveAs } from "file-saver";
-import { ImageGalleryProps } from "@/types";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
 
-const ImageGallery: React.FC<ImageGalleryProps> = ({ images, isLoading, onRefresh }) => {
+const SearchResults = ({ searchResults, setSearchResults, onRefresh }: SearchResultsProps) => {
+  // if (searchResults.length === 0) return null;
+
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -85,9 +86,9 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, isLoading, onRefres
         image_urls: selectedImages,
       });
 
-      // Refresh the image list and clear selection
       onRefresh();
       setSelectedImages([]);
+      setSearchResults(searchResults.filter((image) => !selectedImages.includes(image.image_url)));
     } catch (error) {
       console.error("Error deleting images:", error);
       alert("failed to delete images");
@@ -99,25 +100,13 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, isLoading, onRefres
   return (
     <Card className="shadow-lg border border-gray-200 rounded-lg">
       <CardHeader className="p-4">
-        <CardTitle className="text-2xl font-semibold mb-4">Gallery</CardTitle>
+        <CardTitle className="text-2xl font-semibold mb-4">Search Results</CardTitle>
         <div className="flex justify-center items-center gap-4">
           <Button
-            onClick={onRefresh}
-            disabled={isLoading || isDeleting}
-            className={`py-2 px-4 rounded text-md font-semibold ${
-              isLoading || isDeleting
-                ? "bg-gray-300 text-gray-500"
-                : "bg-blue-500 text-white hover:bg-blue-600"
-            }`}
-          >
-            Refresh
-          </Button>
-
-          <Button
             onClick={handleDeleteImages}
-            disabled={isLoading || isDeleting || selectedImages.length === 0}
+            disabled={isDeleting || selectedImages.length === 0}
             className={`py-2 px-4 rounded text-md font-semibold transition-colors duration-200 ${
-              isLoading || isDeleting || selectedImages.length === 0
+              isDeleting || selectedImages.length === 0
                 ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                 : "bg-red-500 text-white hover:bg-red-600"
             }`}
@@ -128,7 +117,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, isLoading, onRefres
             onClick={handleSaveImages}
             disabled={selectedImages.length === 0}
             className={`py-2 px-4 rounded text-md font-semibold transition-colors duration-200 ${
-              isLoading || isDeleting || selectedImages.length === 0
+              isDeleting || selectedImages.length === 0
                 ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                 : "bg-green-500 text-white hover:bg-green-600"
             }`}
@@ -137,32 +126,28 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, isLoading, onRefres
           </Button>
         </div>
       </CardHeader>
-
       <CardContent className="p-4">
-        {isLoading || isDeleting ? (
+        {isDeleting ? (
           <div className="flex justify-center py-8">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
           </div>
-        ) : images.length === 0 ? (
+        ) : searchResults.length === 0 ? (
           <div className="text-center py-8 text-gray-500">No images found</div>
         ) : (
-          <ScrollArea className="h-80">
-            <div className="flex w-max space-x-4 p-4">
-              {images.map((image, index) => (
-                <ImageThumbnail
-                  key={index}
-                  image={image}
-                  isSelected={selectedImages.includes(image.image_url)}
-                  onSelect={() => toggleImageSelection(image.image_url)}
-                />
-              ))}
-            </div>
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-4">
+            {searchResults.map((image, index) => (
+              <ImageThumbnail
+                key={index}
+                image={image}
+                isSelected={selectedImages.includes(image.image_url)}
+                onSelect={() => toggleImageSelection(image.image_url)}
+              />
+            ))}
+          </div>
         )}
       </CardContent>
     </Card>
   );
 };
 
-export default ImageGallery;
+export default SearchResults;

@@ -57,7 +57,12 @@ yarn gen
 
 ### 環境変数
 
-- 必要な環境変数を`.env.local`に記載する
+- 以下の環境変数を`.env.local`に記載する
+
+```bash
+NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
+NEXT_PUBLIC_IMAGE_BASE_URL=xxxxx
+```
 
 ### 開発サーバーの立ち上げ
 
