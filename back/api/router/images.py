@@ -31,7 +31,10 @@ async def list_images():
 
 @router.post("/search", response_model=list[Metadata])
 async def search_images(
-    query: str | None = None, topk: int = 3, image: UploadFile | None = File(None)
+    query: str | None = None,
+    is_cross_modal: bool = False,
+    topk: int = 3,
+    image: UploadFile | None = File(None),
 ):
     """テキストまたは画像に基づいて類似画像を検索する"""
     try:
@@ -42,7 +45,7 @@ async def search_images(
             pil_image = Image.open(BytesIO(contents))
 
         results = ImageService.search_similar_images(
-            query=query, image=pil_image, topk=topk
+            query=query, image=pil_image, is_cross_modal=is_cross_modal, topk=topk
         )
         return results
     except ValueError as e:

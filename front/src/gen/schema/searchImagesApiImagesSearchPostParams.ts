@@ -8,5 +8,6 @@
 
 export type SearchImagesApiImagesSearchPostParams = {
   query?: string | null;
+  is_cross_modal?: boolean;
   topk?: number;
 };
