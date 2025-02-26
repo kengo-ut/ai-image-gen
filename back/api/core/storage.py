@@ -1,7 +1,7 @@
 import uuid
 from io import BytesIO
 from pathlib import Path
-from typing import List, Literal
+from typing import Literal
 
 import numpy as np
 from clients import client_manager
@@ -73,7 +73,7 @@ class StorageService:
         return image_url
 
     @staticmethod
-    def retrieve_metadata_list() -> List[Metadata]:
+    def retrieve_metadata_list() -> list[Metadata]:
         """メタデータの一覧をTableから取得"""
         response = (
             client_manager.supabase.table(Config.TABLE_NAME)
@@ -93,13 +93,17 @@ class StorageService:
     def search_images(
         query_embedding: np.ndarray,
         query_type: Literal["image", "text"],
+        is_cross_modal: bool,
         topk: int = 3,
-    ) -> List[Metadata]:
+    ) -> list[Metadata]:
         """画像を検索"""
+        search_type = query_type
+        if is_cross_modal:
+            search_type = "image" if query_type == "text" else "text"
         results = client_manager.qdrant.query_points(
             collection_name=Config.COLLECTION_NAME,
             query=query_embedding.tolist(),
-            using=query_type,
+            using=search_type,
             with_payload=True,
             with_vectors=False,
             limit=topk,

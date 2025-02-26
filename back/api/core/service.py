@@ -50,7 +50,10 @@ class ImageService:
 
     @staticmethod
     def search_similar_images(
-        query: str | None = None, image: Image.Image | None = None, topk: int = 3
+        query: str | None = None,
+        image: Image.Image | None = None,
+        is_cross_modal: bool = False,
+        topk: int = 5,
     ) -> list[Metadata]:
         """テキストまたは画像に基づいて類似画像を検索"""
         if query and image:
@@ -67,7 +70,9 @@ class ImageService:
         else:
             raise ValueError("query または image を指定してください")
 
-        metadata_list = StorageService.search_images(query_embedding, query_type, topk)
+        metadata_list = StorageService.search_images(
+            query_embedding, query_type, is_cross_modal, topk
+        )
         return metadata_list
 
     @staticmethod

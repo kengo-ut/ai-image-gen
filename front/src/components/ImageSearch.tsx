@@ -13,6 +13,9 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 
 import { SearchType, ImageSearchProps } from "@/types";
+import { Switch } from "@/components/ui/switch";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { HelpCircle } from "lucide-react";
 
 const ImageSearch: React.FC<ImageSearchProps> = ({ onSearchResults }) => {
   const [searchType, setSearchType] = useState<SearchType>("text");
@@ -21,6 +24,7 @@ const ImageSearch: React.FC<ImageSearchProps> = ({ onSearchResults }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedFilePreview, setSelectedFilePreview] = useState<string | null>(null);
   const [topk, setTopk] = useState(3);
+  const [isCrossModal, setIsCrossModal] = useState(false);
 
   // Handle file selection
   const handleFileChange = (file: File | null, preview: string | null) => {
@@ -48,6 +52,7 @@ const ImageSearch: React.FC<ImageSearchProps> = ({ onSearchResults }) => {
 
       const params: SearchImagesApiImagesSearchPostParams = {
         query: searchType === "text" ? searchText : null,
+        is_cross_modal: isCrossModal,
         topk,
       };
 
@@ -69,38 +74,66 @@ const ImageSearch: React.FC<ImageSearchProps> = ({ onSearchResults }) => {
       </CardHeader>
       <CardContent className="p-4">
         <div className="mb-4">
-          <div className="flex space-x-4 mb-4">
-            <RadioGroup
-              defaultValue="text"
-              onValueChange={(value) => setSearchType(value as SearchType)}
-            >
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="text" id="text" />
-                <Label htmlFor="text" className="text-md font-medium">
-                  text
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="image" id="image" />
-                <Label htmlFor="image" className="text-md font-medium">
-                  image
-                </Label>
-              </div>
-            </RadioGroup>
+          <div className="flex flex-row justify-between items-center gap-4 mb-4">
+            {/* Search Type */}
+            <div className="flex flex-col space-y-2">
+              <Label htmlFor="query" className="text-md font-semibold">
+                query:
+              </Label>
+              <RadioGroup
+                defaultValue="text"
+                onValueChange={(value) => setSearchType(value as SearchType)}
+                className="flex space-x-4"
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="text" id="text" />
+                  <Label htmlFor="text" className="text-md">
+                    text
+                  </Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="image" id="image" />
+                  <Label htmlFor="image" className="text-md">
+                    image
+                  </Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            {/* Cross Modal Toggle */}
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="cross-modal"
+                checked={isCrossModal}
+                onCheckedChange={() => setIsCrossModal(!isCrossModal)}
+              />
+              <Label htmlFor="cross-modal" className="text-md font-semibold">
+                cross modal
+              </Label>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <HelpCircle className="w-4 h-4 text-gray-400 cursor-pointer" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>
+                      Enable cross-modal search to find related images from text and vice versa.
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
           </div>
 
           {searchType === "text" ? (
             <div className="mb-4">
-              <Label htmlFor="search-text" className="block text-md font-medium mb-1">
-                search query:
-              </Label>
               <Input
                 id="search-text"
                 type="text"
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
                 className="w-full p-2 border rounded"
-                placeholder="text search query"
+                placeholder="text prompt (e.g., 'A cute, fluffy cat with striking green eyes.')"
                 disabled={isSearching}
               />
             </div>
@@ -113,7 +146,7 @@ const ImageSearch: React.FC<ImageSearchProps> = ({ onSearchResults }) => {
           )}
 
           <div className="mb-4">
-            <Label htmlFor="steps" className="block text-md font-medium mb-1">
+            <Label htmlFor="steps" className="block text-md font-semibold mb-1">
               topk: {topk}
             </Label>
             <Slider

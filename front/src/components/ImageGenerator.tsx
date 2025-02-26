@@ -40,19 +40,19 @@ const ImageGenerator: React.FC<ImageGeneratorProps> = ({ onImageGenerated }) => 
       </CardHeader>
       <CardContent className="p-4">
         <div className="mb-4">
-          <label className="block text-md font-medium mb-1">prompt:</label>
+          <label className="block text-md font-semibold mb-1">prompt:</label>
           <Input
             type="text"
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             className="w-full p-2 border rounded"
-            placeholder="text prompt (e.g., 'a painting of a sunset over a mountain')"
+            placeholder="text prompt (e.g., 'A cute, fluffy cat with striking green eyes.')"
             disabled={isGenerating}
           />
         </div>
 
         <div className="mb-4">
-          <Label htmlFor="steps" className="block text-md font-medium mb-1">
+          <Label htmlFor="steps" className="block text-md font-semibold mb-1">
             steps: {steps}
           </Label>
           <Slider
@@ -65,7 +65,7 @@ const ImageGenerator: React.FC<ImageGeneratorProps> = ({ onImageGenerated }) => 
         </div>
 
         <div className="mb-4">
-          <Label htmlFor="guidance-scale" className="block text-md font-medium mb-1">
+          <Label htmlFor="guidance-scale" className="block text-md font-semibold mb-1">
             guidance scale: {guidanceScale}
           </Label>
           <Slider
