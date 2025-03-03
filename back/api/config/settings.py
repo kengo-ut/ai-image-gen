@@ -13,7 +13,7 @@ class Config:
     COLLECTION_NAME: str = os.environ.get("COLLECTION_NAME", "")
 
     # モデル設定
-    DEVICE = "mps" if torch.backends.mps.is_available() else "cpu"
+    DEVICE = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
     EMBEDDING_DIM = 512
 
     # データベースパス

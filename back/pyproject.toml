@@ -10,6 +10,7 @@ dependencies = [
     "fastapi>=0.115.8",
     "pydantic>=2.10.6",
     "python-multipart>=0.0.20",
+    "qdrant-client>=1.13.2",
     "supabase==2.10.0",
     "torch>=2.6.0",
     "torchaudio>=2.6.0",
