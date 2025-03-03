@@ -70,6 +70,7 @@ AI-IMAGE-GEN は、AI 技術を活用して画像を生成するアプリケー�
 
 3. `back`ディレクトリで以下のコマンドを実行し、開発サーバーを立ち上げる
    ```bash
+   . .venv/bin/activate
    make dev
    ```
 

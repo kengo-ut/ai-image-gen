@@ -42,6 +42,7 @@ export PYTHONPATH=xxxxx
 ### 開発サーバーの立ち上げ
 
 ```bash
+. .venv/bin/activate
 make dev
 ```
 
