@@ -40,7 +40,7 @@ AI-IMAGE-GEN は、AI 技術を活用して画像を生成するアプリケー�
 
 ## デモ動画
 
-[![AI-IMAGE-GENのデモ動画](/images/demo.png)](https://youtu.be/el4QGIpBMH8?si=K6ZWlvfkAWmOtekc)
+[![AI-IMAGE-GENのデモ動画](/images/demo.png)](https://youtu.be/IftQtP6GB_0?si=sqLdV4Bi79JZAVY0)
 
 ## 環境構築
 
