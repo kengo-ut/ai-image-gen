@@ -36,7 +36,7 @@ export TABLE_NAME=xxxxx
 export COLLECTION_NAME=xxxxx
 
 # Python
-export PYTHONPATH=xxxxx
+export PYTHONPATH=xxxxx/ai-image-gen/back/api
 ```
 
 ### 開発サーバーの立ち上げ

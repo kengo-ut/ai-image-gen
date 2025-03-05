@@ -38,9 +38,9 @@ AI-IMAGE-GEN は、AI 技術を活用して画像を生成するアプリケー�
 
 - Policy は適宜設定してください。
 
-## デモ画像
+## デモ動画
 
-![demo](/images/demo.png)
+[![AI-IMAGE-GENのデモ動画](/images/demo.png)](https://youtu.be/el4QGIpBMH8?si=K6ZWlvfkAWmOtekc)
 
 ## 環境構築
 
@@ -65,7 +65,7 @@ AI-IMAGE-GEN は、AI 技術を活用して画像を生成するアプリケー�
    export COLLECTION_NAME=xxxxx
 
    # Python
-   export PYTHONPATH=xxxxx
+   export PYTHONPATH=xxxxx/ai-image-gen/back/api
    ```
 
 3. `back`ディレクトリで以下のコマンドを実行し、開発サーバーを立ち上げる
