@@ -46,13 +46,19 @@ AI-IMAGE-GEN は、AI 技術を活用して画像を生成するアプリケー�
 
 ### back
 
-1. `back`ディレクトリで以下のコマンドを実行し、依存パッケージをインストールする
+1. `back`ディレクトリに移動する
+
+   ```bash
+   cd back
+   ```
+
+2. 以下のコマンドを実行し、依存パッケージをインストールする
 
    ```bash
    uv sync
    ```
 
-2. `back`ディレクトリで、以下の環境変数ファイル`back/.envrc`を作成する
+3. `direnv`を使用して`.envrc`ファイルを作成し、以下の環境変数を設定する (xxxxx は適切なパスに置き換える)
 
    ```
    # Supabase
@@ -68,43 +74,53 @@ AI-IMAGE-GEN は、AI 技術を活用して画像を生成するアプリケー�
    export PYTHONPATH=xxxxx/ai-image-gen/back/api
    ```
 
-3. `back`ディレクトリで以下のコマンドを実行し、開発サーバーを立ち上げる
+4. 以下のコマンドを実行し、開発サーバーを立ち上げる
    ```bash
-   . .venv/bin/activate
    make dev
    ```
 
 ### front
 
-4. `front`で使用する Node.js と Yarn のバージョンを設定する
+1. `front`ディレクトリに移動する
 
    ```bash
-   # 初回（package.jsonへ固定）
-   volta pin node@20.15.0
-   volta pin yarn@4.3.1
+   cd front
+   ```
 
-   # 以降（package.jsonから指定）
+2. [Volta](https://volta.sh/) を使用して Node.js と Yarn をインストールする
+
+   ```bash
    volta install node
    volta install yarn
    ```
 
-5. `front`ディレクトリで以下のコマンドを実行し、依存パッケージをインストールする
+3. 以下のコマンドを実行し、依存パッケージをインストールする
 
    ```bash
    yarn
    ```
 
-6. `front`ディレクトリで、以下の環境変数ファイル`front/.env.local`を作成する
+4. 環境変数ファイル`.env.local`を作成し、以下の環境変数を設定する (xxxxx は適切な内容に置き換える)
 
    ```
    NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:8000
    NEXT_PUBLIC_IMAGE_BASE_URL=xxxxx
    ```
 
-7. `front`ディレクトリで以下のコマンドを実行し、開発サーバーを立ち上げる
+5. 以下のコマンドを実行し、開発サーバーを立ち上げる
 
    ```bash
    yarn dev
    ```
 
-8. [http://localhost:3000](http://localhost:3000)へアクセスしてページが表示されれば OK
+6. [http://localhost:3000](http://localhost:3000)へアクセスしてページが表示されれば OK
+
+## TODOs
+
+- [x] Implement the function to generate images
+- [x] Implement the function to manage images
+  - [x] Implement the function to delete images
+  - [x] Implement the function to save images (local)
+- [x] Implement the function to search for images
+- [x] Implement the function to search for images (cross-modal)
+- [ ] Clean the code further

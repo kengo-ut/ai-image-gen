@@ -1,19 +1,12 @@
-# Next.js Template
-
-Next.js によるフロントエンド開発のためのテンプレートです
+# front
 
 ## 環境構築
 
 ### パッケージマネージャーのインストール
 
-- [Volta](https://volta.sh/) を使用して Node.js と Yarn のバージョンを管理する
+[Volta](https://volta.sh/) を使用して Node.js と Yarn をインストールする
 
 ```bash
-# 初回（package.jsonへ固定）
-volta pin node@20.15.0
-volta pin yarn@4.3.1
-
-# 以降（package.jsonから指定）
 volta install node
 volta install yarn
 ```
@@ -24,42 +17,11 @@ volta install yarn
 yarn
 ```
 
-### Schema・APIクライアントの生成
-
-```bash
-cd ../back
-uv run python openapi.py > openapi.json
-cd ../front
-yarn gen
-```
-
-### ESLint
-
-- 加えたいルールを`eslint.config.mjs`に記載する
-
-### VSCode
-
-- 以下の設定を`.vscode/settings.json`に記載する
-
-```json
-{
-  "npm.packageManager": "yarn",
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
-  "editor.formatOnPaste": true,
-  "editor.codeActionsOnSave": {
-    "source.addMissingImports": "explicit"
-  },
-  "javascript.preferences.importModuleSpecifier": "non-relative",
-  "typescript.preferences.importModuleSpecifier": "non-relative"
-}
-```
-
 ### 環境変数
 
-- 以下の環境変数を`.env.local`に記載する
+環境変数ファイル`.env.local`を作成し、以下の環境変数を設定する (xxxxx は適切な内容に置き換える)
 
-```bash
+```
 NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:8000
 NEXT_PUBLIC_IMAGE_BASE_URL=xxxxx
 ```
@@ -69,26 +31,3 @@ NEXT_PUBLIC_IMAGE_BASE_URL=xxxxx
 ```bash
 yarn dev
 ```
-
-## デプロイ
-
-- `next.config.ts`を以下のように修正
-
-```ts
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
-  output: "export",
-  images: { unoptimized: true },
-};
-
-export default nextConfig;
-```
-
-## TODO
-
-- testの実装 (vitest)
-- authの実装
-- deployの実装 (Vercel)
-- CI/CDの実装 (GitHub Actions)
