@@ -11,12 +11,10 @@ class ImageService:
     """画像生成・検索・管理のためのメインサービスクラス"""
 
     @staticmethod
-    def generate_and_save_image(
-        prompt: str, steps: int = 30, guidance_scale: float = 7.5
-    ) -> Metadata:
+    def generate_and_save_image(prompt: str, steps: int = 1) -> Metadata:
         """画像を生成し、保存する"""
         # 画像生成
-        image = ImageGenerationService.generate_image(prompt, steps, guidance_scale)
+        image = ImageGenerationService.generate_image(prompt, steps)
 
         # 埋め込み生成
         image_embedding = EmbeddingService.generate_image_embedding(image)

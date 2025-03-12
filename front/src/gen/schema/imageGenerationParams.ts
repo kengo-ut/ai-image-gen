@@ -11,6 +11,4 @@ export interface ImageGenerationParams {
   prompt: string;
   /** Number of steps for diffusion */
   steps: number;
-  /** Guidance scale for diffusion */
-  guidance_scale: number;
 }

@@ -5,7 +5,6 @@ from pydantic import BaseModel, Field
 class ImageGenerationParams(BaseModel):
     prompt: str = Field(..., description="Prompt for image generation")
     steps: int = Field(..., description="Number of steps for diffusion")
-    guidance_scale: float = Field(..., description="Guidance scale for diffusion")
 
 
 class Metadata(BaseModel):

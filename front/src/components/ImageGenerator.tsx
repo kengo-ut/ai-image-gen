@@ -9,8 +9,7 @@ import { ImageGeneratorProps } from "@/types";
 
 const ImageGenerator: React.FC<ImageGeneratorProps> = ({ onImageGenerated }) => {
   const [prompt, setPrompt] = useState("");
-  const [steps, setSteps] = useState(30);
-  const [guidanceScale, setGuidanceScale] = useState(7.5);
+  const [steps, setSteps] = useState(1);
   const [isGenerating, setIsGenerating] = useState(false);
 
   // Generate image
@@ -20,7 +19,6 @@ const ImageGenerator: React.FC<ImageGeneratorProps> = ({ onImageGenerated }) => 
       await generateImageApiImagesGeneratePost({
         prompt,
         steps,
-        guidance_scale: guidanceScale,
       });
 
       // Notify parent to refresh the image list
@@ -57,25 +55,10 @@ const ImageGenerator: React.FC<ImageGeneratorProps> = ({ onImageGenerated }) => 
           </Label>
           <Slider
             defaultValue={[steps]}
-            min={10}
-            max={50}
+            min={1}
+            max={5}
             onValueChange={(value) => setSteps(value[0])}
             disabled={isGenerating}
-          />
-        </div>
-
-        <div className="mb-4">
-          <Label htmlFor="guidance-scale" className="block text-md font-semibold mb-1">
-            guidance scale: {guidanceScale}
-          </Label>
-          <Slider
-            defaultValue={[guidanceScale]}
-            min={0}
-            max={15}
-            step={0.5}
-            onValueChange={(value) => setGuidanceScale(value[0])}
-            disabled={isGenerating}
-            color="red"
           />
         </div>
 

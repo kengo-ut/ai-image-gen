@@ -12,9 +12,7 @@ router = APIRouter(prefix="/images", tags=["images"])
 async def generate_image(request: ImageGenerationParams):
     """プロンプトから画像を生成し保存する"""
     try:
-        result = ImageService.generate_and_save_image(
-            request.prompt, request.steps, request.guidance_scale
-        )
+        result = ImageService.generate_and_save_image(request.prompt, request.steps)
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
