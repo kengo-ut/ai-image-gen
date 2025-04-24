@@ -1,6 +1,6 @@
 import torch
 from config import Config
-from diffusers import StableDiffusionPipeline
+from diffusers import FluxPipeline
 from qdrant_client import QdrantClient
 from qdrant_client.models import Distance, VectorParams
 from supabase import create_client
@@ -9,10 +9,11 @@ from transformers import CLIPModel, CLIPProcessor
 
 class ClientManager:
     def __init__(self):
-        # Stable Diffusionモデルのセットアップ
-        self.pipe = StableDiffusionPipeline.from_pretrained(Config.SD_MODEL_PATH).to(
-            Config.DEVICE
-        )
+        # FluxPipelineのセットアップ
+        self.pipe = FluxPipeline.from_pretrained(
+            Config.FLUX_MODEL_PATH, torch_dtype=torch.bfloat16
+        ).to(Config.DEVICE)
+        self.pipe.enable_model_cpu_offload()
 
         # CLIPモデルのセットアップ
         self.clip_model = CLIPModel.from_pretrained(Config.CLIP_MODEL_PATH).to(
